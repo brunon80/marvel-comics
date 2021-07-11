@@ -1,120 +1,34 @@
+import { useEffect } from "react"
 import styles from './Comics.module.scss'
 import { Comic } from '../../molecules'
 import { Wrapper } from '../../atoms'
+import { useComics } from '../../store/comicsStore'
 
 export default function ComicsList() {
+  const {
+    comics,
+    getComics
+  } = useComics()
+
+  useEffect(() => {
+    getComics()
+  }, [])
+
   return (
     <section className={styles.container}>
       <Wrapper>
         <div className={styles.grid}>
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
-          <Comic
-            title="Teste de título"
-            number="#32"
-            year="1986"
-            image="https://kanto.legiaodosherois.com.br/fnoop/wp-content/uploads/2018/06/legiao_YsS1ljO9w0Vf6mdEZXD4gaCtIheULo8iMGAxzpF_vu.jpg" 
-          />
+          {
+            comics?.map((comic, index) => (
+              <Comic
+                key={comic.id}
+                title={comic.title}
+                year={comic.date}
+                image={comic.image}
+              />
+            ))
+          }
+
         </div>
       </Wrapper>
     </section>

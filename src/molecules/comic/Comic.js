@@ -10,7 +10,6 @@ export default function Comic({ title, year, number, image, isFavorite = false, 
       <div className={styles.overlay}>
         <div className={styles.info}>
           <p aria-label="comic-title" className={styles.caption}>{title}</p>
-          <p aria-label="comic-caption" className={styles.caption}>{year} {number}</p>
         </div>
       </div>
     </div>

@@ -43,12 +43,6 @@ describe('Comic tests', () => {
     expect(titleComp).toBeInTheDocument()
   })
 
-  it('should render a comic with a caption', () => {
-    const { getByText } = setup()
-    const yearComp = getByText(`${year} ${number}`)
-    expect(yearComp).toBeInTheDocument()
-  })
-
   it('should render a comic with a favorite', () => {
     const { getByLabelText } = setup()
     const favorite = getByLabelText('comic-favorite')
