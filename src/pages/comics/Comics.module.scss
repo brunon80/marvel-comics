@@ -1,0 +1,11 @@
+.container {
+  background-color: var(--bg);
+  padding-top: 180px;
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: grid;
+  grid-gap: 25px;
+  padding: 10px;
+}
