@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput tests should macth snapshot <TextInput /> 1`] = `
+<input
+  aria-label="search"
+  type="text"
+/>
+`;

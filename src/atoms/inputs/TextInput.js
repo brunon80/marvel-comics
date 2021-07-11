@@ -1,4 +1,4 @@
-export default function Input({ name, id, onChange, className, ...props }) {
+export default function TextInput({ name, id, onChange, className, ...props }) {
   return (
     <input
       onChange={onChange}

@@ -1,16 +1,16 @@
 import styles from './Comic.module.scss'
 
-export default function Comic({ title, year, number, image, isFavorite = false }) {
+export default function Comic({ title, year, number, image, isFavorite = false, onToggleFavorite }) {
   return (
-    <div className={styles.comic}>
-      <img className={styles.image} src={image} alt="comic-img" />
-      <div className={isFavorite && styles.favorite} >
+    <div aria-label="comic" className={styles.comic}>
+      <img aria-label="comic-image" className={styles.image} src={image} alt="comic-img" />
+      <div aria-label="comic-favorite" onClick={onToggleFavorite} className={isFavorite ? styles.favorite : undefined} >
         <div className={isFavorite ? styles["heart-on"] : styles.heart} />
       </div>
       <div className={styles.overlay}>
         <div className={styles.info}>
-          <p className={styles.caption}>{title}</p>
-          <p className={styles.caption}>{year} {number}</p>
+          <p aria-label="comic-title" className={styles.caption}>{title}</p>
+          <p aria-label="comic-caption" className={styles.caption}>{year} {number}</p>
         </div>
       </div>
     </div>
