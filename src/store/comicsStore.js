@@ -6,7 +6,7 @@ import {
   useCallback 
 } from 'react'
 import { useLocation, useParams } from "react-router-dom"
-import { DEFAULT_PAGE_SIZE, START_PAGE } from '../constants'
+import { DEFAULT_PAGE_SIZE, START_PAGE, MAX_CHARACTER_IDS } from '../constants'
 import { fechComics, searchCharacterByName } from '../services/marvelServices'
 import { comicFactory } from '../factory'
 
@@ -31,7 +31,8 @@ function ComicsProvider({ children }) {
 
   const getCharactersByName = useCallback(async (name) => {
     const { data } = await searchCharacterByName(name)
-    const characterIdList = data?.results?.reduce((acc, curr) => acc ? `${acc},${curr?.id}` : `${curr?.id}` ,'')
+    const firstCharacters = data?.results?.slice(0, MAX_CHARACTER_IDS)
+    const characterIdList = firstCharacters?.reduce((acc, curr) => acc ? `${acc},${curr?.id}` : `${curr?.id}` ,'')
     return characterIdList
   }, [])
 

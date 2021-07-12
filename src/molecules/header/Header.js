@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import MarvelLogo from '../../assets/marvel_logo.png'
 import styles from './Header.module.scss'
 import { TextInput } from '../../atoms'
@@ -10,7 +10,9 @@ export default function Header() {
 
   return (
     <header className={styles.container}>
-      <img className={styles.logo} src={MarvelLogo} alt="marve-logo" />
+      <Link to="/">
+        <img className={styles.logo} src={MarvelLogo} alt="marve-logo" />
+      </Link>
       <form className={styles.form} onSubmit={onSubmit}>
         <TextInput
           defaultValue={character}

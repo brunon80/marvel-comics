@@ -20,7 +20,7 @@ export async function fechComics(offset = 0, characters) {
 export async function searchCharacterByName(name) {
   const charactersUrl = `${BASE_URL}/characters`
   const params = { 
-    name,
+    nameStartsWith: name,
     apikey: API_KEY,
   }
   const url = urlBuilder(charactersUrl, params)
