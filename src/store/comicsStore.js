@@ -12,8 +12,24 @@ const ComicsContext = createContext()
 const API_KEY = '07e3e205bebd46de31d15ee9a76d85c2'
 const DEFAULT_PAGE_SIZE = 15
 
-async function fechComics(offset = 0) {
-  const response = await fetch(`http://gateway.marvel.com/v1/public/comics?apikey=${API_KEY}&limit=15&offset=${offset}&orderBy=-focDate`)
+function urlBuilder(url, params) {
+  if(!params) return url
+  const query = new URLSearchParams(params).toString()
+  return `${url}?${query}`
+}
+
+async function fechComics(offset = 0, characters) {
+  const baseUrl = 'http://gateway.marvel.com/v1/public/comics'
+  const params = {
+    apikey: API_KEY,
+    limit: DEFAULT_PAGE_SIZE,
+    offset,
+    orderBy: '-focDate'
+  }
+  if(characters) params.characters = characters
+
+  const url = urlBuilder(baseUrl, params)
+  const response = await fetch(url)
   const json = await response.json()
   return json
 }
