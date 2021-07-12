@@ -84,7 +84,8 @@ function ComicsProvider({ children }) {
     setIsFetching(true)
     if (character) {
       const characterIds = await getCharacterByName(character)
-      await getComicsCb(characterIds)
+      if (characterIds) await getComicsCb(characterIds)
+      else alert('No comics found to that character')
     } else {
       await getComicsCb()
     }
