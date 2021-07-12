@@ -18,15 +18,14 @@ function ComicsProvider({ children }) {
 
   const query = new URLSearchParams(location.search)
   const parsedPage = parseInt(query.get('page'), 10)
-  const currentPage = isNaN(parsedPage) ? START_PAGE : parsedPage
+  const page = isNaN(parsedPage) ? START_PAGE : parsedPage
 
   const [comics, setComics] = useState([])
-  const [page, setPage] = useState(currentPage)
   const [isFetching, setIsFetching] = useState(true)
 
   const getComicsCb = useCallback(async (characterIds) => {
     const { data } = await fechComics(page * DEFAULT_PAGE_SIZE, characterIds)
-    const parsedComics = data.results.map((comic) => comicFactory(comic))
+    const parsedComics = data?.results?.map((comic) => comicFactory(comic))
     setComics(parsedComics)
   }, [page])
 
@@ -48,17 +47,11 @@ function ComicsProvider({ children }) {
     setIsFetching(false)
   }, [character, getCharactersByName, getComicsCb])
 
-  useEffect(() => {
-    updatePage(currentPage)
-  }, [currentPage])
 
   useEffect(() => {
     updateCharacterList()
   }, [updateCharacterList])
 
-  function updatePage(page) {
-    setPage(page)
-  }
 
   function toggleFavorite(comicIndex) {
     const comicsCopy = [...comics]
