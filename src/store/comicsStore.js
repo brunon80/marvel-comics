@@ -6,55 +6,11 @@ import {
   useCallback 
 } from 'react'
 import { useLocation, useParams } from "react-router-dom"
+import { DEFAULT_PAGE_SIZE, START_PAGE } from '../constants'
+import { fechComics, searchCharacterByName } from '../services/marvelServices'
+import { comicFactory } from '../factory'
 
 const ComicsContext = createContext()
-
-const API_KEY = '07e3e205bebd46de31d15ee9a76d85c2'
-const DEFAULT_PAGE_SIZE = 15
-const START_PAGE = 0
-
-function urlBuilder(url, params) {
-  if(!params) return url
-  const query = new URLSearchParams(params).toString()
-  return `${url}?${query}`
-}
-
-async function fechComics(offset = 0, characters) {
-  const baseUrl = 'http://gateway.marvel.com/v1/public/comics'
-  const params = {
-    apikey: API_KEY,
-    limit: DEFAULT_PAGE_SIZE,
-    offset,
-    orderBy: '-focDate'
-  }
-  if(characters) params.characters = characters
-
-  const url = urlBuilder(baseUrl, params)
-  const response = await fetch(url)
-  const json = await response.json()
-  return json
-}
-
-async function seachCharacterByName(name) {
-  const baseUrl = 'http://gateway.marvel.com/v1/public/characters'
-  const params = { 
-    name,
-    apikey: API_KEY,
-  }
-  const url = urlBuilder(baseUrl, params)
-  const response = await fetch(url)
-  const json = await response.json()
-  return json
-}
-
-function comicFactory(comic) {
-  return ({
-    id: comic?.id,
-    title: comic?.title,
-    image: `${comic.thumbnail?.path}.${comic?.thumbnail?.extension}`,
-    isFavorite: false
-  })
-}
 
 function ComicsProvider({ children }) {
   let location = useLocation()
@@ -74,8 +30,8 @@ function ComicsProvider({ children }) {
     setComics(parsedComics)
   }, [page])
 
-  const getCharacterByName = useCallback(async (name) => {
-    const { data } = await seachCharacterByName(name)
+  const getCharactersByName = useCallback(async (name) => {
+    const { data } = await searchCharacterByName(name)
     const characterIdList = data?.results?.reduce((acc, curr) => acc ? `${acc},${curr?.id}` : `${curr?.id}` ,'')
     return characterIdList
   }, [])
@@ -83,14 +39,14 @@ function ComicsProvider({ children }) {
   const updateCharacterList = useCallback(async () => {
     setIsFetching(true)
     if (character) {
-      const characterIds = await getCharacterByName(character)
+      const characterIds = await getCharactersByName(character)
       if (characterIds) await getComicsCb(characterIds)
       else alert('No comics found to that character')
     } else {
       await getComicsCb()
     }
     setIsFetching(false)
-  }, [character, getCharacterByName, getComicsCb])
+  }, [character, getCharactersByName, getComicsCb])
 
   useEffect(() => {
     updatePage(currentPage)
