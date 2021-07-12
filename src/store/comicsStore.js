@@ -5,12 +5,13 @@ import {
   useEffect, 
   useCallback 
 } from 'react'
-import { useLocation } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 
 const ComicsContext = createContext()
 
 const API_KEY = '07e3e205bebd46de31d15ee9a76d85c2'
 const DEFAULT_PAGE_SIZE = 15
+const START_PAGE = 0
 
 function urlBuilder(url, params) {
   if(!params) return url
@@ -34,6 +35,18 @@ async function fechComics(offset = 0, characters) {
   return json
 }
 
+async function seachCharacterByName(name) {
+  const baseUrl = 'http://gateway.marvel.com/v1/public/characters'
+  const params = { 
+    name,
+    apikey: API_KEY,
+  }
+  const url = urlBuilder(baseUrl, params)
+  const response = await fetch(url)
+  const json = await response.json()
+  return json
+}
+
 function comicFactory(comic) {
   return ({
     id: comic?.id,
@@ -44,26 +57,43 @@ function comicFactory(comic) {
 
 function ComicsProvider({ children }) {
   let location = useLocation()
+  let { character } = useParams()
+
   const query = new URLSearchParams(location.search)
   const parsedPage = parseInt(query.get('page'), 10)
-  const currentPage = isNaN(parsedPage) ? 0 : parsedPage
+  const currentPage = isNaN(parsedPage) ? START_PAGE : parsedPage
 
   const [comics, setComics] = useState([])
   const [page, setPage] = useState(currentPage)
 
-  const getComicsCb = useCallback(async () => {
-    const { data } = await fechComics(page * DEFAULT_PAGE_SIZE)
+  const getComicsCb = useCallback(async (characterIds) => {
+    const { data } = await fechComics(page * DEFAULT_PAGE_SIZE, characterIds)
     const parsedComics = data.results.map((comic) => comicFactory(comic))
     setComics(parsedComics)
   }, [page])
+
+  const getCharacterByName = useCallback(async (name) => {
+    const { data } = await seachCharacterByName(name)
+    const characterIdList = data?.results?.reduce((acc, curr) => acc ? `${acc},${curr?.id}` : `${curr?.id}` ,'')
+    return characterIdList
+  }, [])
+
+  const updateCharacterList = useCallback(async () => {
+    if (character) {
+      const characterIds = await getCharacterByName(character)
+      getComicsCb(characterIds)
+    } else {
+      getComicsCb()
+    }
+  }, [character, getCharacterByName, getComicsCb])
 
   useEffect(() => {
     updatePage(currentPage)
   }, [currentPage])
 
   useEffect(() => {
-    getComicsCb()
-  }, [page, getComicsCb])
+    updateCharacterList()
+  }, [updateCharacterList])
 
   function updatePage(page) {
     setPage(page)

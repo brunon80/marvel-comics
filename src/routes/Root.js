@@ -10,15 +10,15 @@ import { ComicsProvider } from '../store/comicsStore'
 export default function Root() {
   return (
     <Router>
-      <ComicsProvider>
-        <Header />
-        <Switch>
-          <Route path="/:character?">
+      <Switch>
+        <Route path="/:character?">
+          <ComicsProvider>
+            <Header />
             <ComicsList />
-          </Route>
-        </Switch>
-        <Footer />
-      </ComicsProvider>
+            <Footer />
+          </ComicsProvider>
+        </Route>
+      </Switch>
     </Router>
   )
 }

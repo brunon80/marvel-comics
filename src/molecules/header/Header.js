@@ -1,12 +1,25 @@
+import { useParams } from "react-router-dom"
 import MarvelLogo from '../../assets/marvel_logo.png'
 import styles from './Header.module.scss'
 import { TextInput } from '../../atoms'
+import { useSearchCharacter } from '../../hooks'
 
 export default function Header() {
-  return(
+  const { onSubmit } = useSearchCharacter()
+  let { character } = useParams()
+
+  return (
     <header className={styles.container}>
       <img className={styles.logo} src={MarvelLogo} alt="marve-logo" />
-      <TextInput className={styles.search} placeholder="Type to search a character" name="search" id="search-char" />
+      <form className={styles.form} onSubmit={onSubmit}>
+        <TextInput
+          defaultValue={character}
+          className={styles.search}
+          placeholder="Type to search a character and hit enter"
+          name="search"
+          id="search-char"
+        />
+      </form>
     </header>
   )
 }
