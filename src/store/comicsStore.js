@@ -5,10 +5,12 @@ import {
   useEffect, 
   useCallback 
 } from 'react'
+import { useLocation } from "react-router-dom"
 
 const ComicsContext = createContext()
 
 const API_KEY = '07e3e205bebd46de31d15ee9a76d85c2'
+const DEFAULT_PAGE_SIZE = 15
 
 async function fechComics(offset = 0) {
   const response = await fetch(`http://gateway.marvel.com/v1/public/comics?apikey=${API_KEY}&limit=15&offset=${offset}&orderBy=-focDate`)
@@ -20,34 +22,42 @@ function comicFactory(comic) {
   return ({
     id: comic?.id,
     title: comic?.title,
-    year: new Date(comic?.dates?.[0]?.type?.date),
     image: `${comic.thumbnail?.path}.${comic?.thumbnail?.extension}`
   })
 }
 
 function ComicsProvider({ children }) {
+  let location = useLocation()
+  const query = new URLSearchParams(location.search)
+  const parsedPage = parseInt(query.get('page'), 10)
+  const currentPage = isNaN(parsedPage) ? 0 : parsedPage
+
   const [comics, setComics] = useState([])
-  const [offset, setOffset] = useState(0)
+  const [page, setPage] = useState(currentPage)
 
   const getComicsCb = useCallback(async () => {
-    const { data } = await fechComics(offset)
-    console.log(data)
+    const { data } = await fechComics(page * DEFAULT_PAGE_SIZE)
     const parsedComics = data.results.map((comic) => comicFactory(comic))
     setComics(parsedComics)
-  }, [offset])
+  }, [page])
+
+  useEffect(() => {
+    updatePage(currentPage)
+  }, [currentPage])
 
   useEffect(() => {
     getComicsCb()
-  }, [offset, getComicsCb])
+  }, [page, getComicsCb])
 
-  function updateOffset(nextOffset) {
-    setOffset(nextOffset)
+  function updatePage(page) {
+    setPage(page)
   }
   
   const value = {
     comics,
+    page,
     getComicsCb,
-    updateOffset
+    updatePage
   }
   return <ComicsContext.Provider value={value}>{children}</ComicsContext.Provider>
 }
