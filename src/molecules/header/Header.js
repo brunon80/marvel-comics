@@ -5,7 +5,7 @@ import { TextInput } from '../../atoms'
 import { useSearchCharacter } from '../../hooks'
 
 export default function Header() {
-  const { onSubmit } = useSearchCharacter()
+  const { onSubmit, searchInput } = useSearchCharacter()
   let { character } = useParams()
 
   return (
@@ -15,6 +15,7 @@ export default function Header() {
       </Link>
       <form className={styles.form} onSubmit={onSubmit}>
         <TextInput
+          ref={searchInput}
           defaultValue={character}
           className={styles.search}
           placeholder="Type to search a comic by character name and hit enter"
