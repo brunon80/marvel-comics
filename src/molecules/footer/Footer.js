@@ -5,8 +5,10 @@ import styles from './Footer.module.scss'
 import { useComics } from '../../store/comicsStore'
 
 export default function Footer() {
-  const { page } = useComics()
+  const { page, isFetching } = useComics()
   let location = useLocation()
+
+  if (isFetching) return null
 
   return (
     <footer className={styles.footer}>
