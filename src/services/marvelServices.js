@@ -1,7 +1,7 @@
 import { BASE_URL, API_KEY, DEFAULT_PAGE_SIZE } from '../constants'
 import { urlBuilder } from '../utils'
 
-export async function fechComics(offset = 0, characters) {
+export async function fetchComics(offset = 0, characters) {
   const comicsUrl = `${BASE_URL}/comics`
   const params = {
     apikey: API_KEY,

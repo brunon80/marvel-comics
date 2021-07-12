@@ -17,7 +17,7 @@ export default function Header() {
         <TextInput
           defaultValue={character}
           className={styles.search}
-          placeholder="Type to search a comic character and hit enter"
+          placeholder="Type to search a comic by character name and hit enter"
           name="search"
           id="search-char"
         />

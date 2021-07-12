@@ -7,7 +7,7 @@ import {
 } from 'react'
 import { useLocation, useParams } from "react-router-dom"
 import { DEFAULT_PAGE_SIZE, START_PAGE, MAX_CHARACTER_IDS } from '../constants'
-import { fechComics, searchCharacterByName } from '../services/marvelServices'
+import { fetchComics, searchCharacterByName } from '../services/marvelServices'
 import { comicFactory } from '../factory'
 
 const ComicsContext = createContext()
@@ -24,7 +24,7 @@ function ComicsProvider({ children }) {
   const [isFetching, setIsFetching] = useState(true)
 
   const getComicsCb = useCallback(async (characterIds) => {
-    const { data } = await fechComics(page * DEFAULT_PAGE_SIZE, characterIds)
+    const { data } = await fetchComics(page * DEFAULT_PAGE_SIZE, characterIds)
     const parsedComics = data?.results?.map((comic) => comicFactory(comic))
     setComics(parsedComics)
   }, [page])
