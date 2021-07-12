@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from 'react'
+import { 
+  createContext, 
+  useContext, 
+  useState, 
+  useEffect, 
+  useCallback 
+} from 'react'
 
 const ComicsContext = createContext()
 
@@ -15,7 +21,7 @@ function comicFactory(comic) {
     id: comic?.id,
     title: comic?.title,
     year: new Date(comic?.dates?.[0]?.type?.date),
-    image: `${comic.thumbnail?.path}.${comic.thumbnail?.extension}`
+    image: `${comic.thumbnail?.path}.${comic?.thumbnail?.extension}`
   })
 }
 
@@ -23,16 +29,25 @@ function ComicsProvider({ children }) {
   const [comics, setComics] = useState([])
   const [offset, setOffset] = useState(0)
 
-  async function getComics () {
+  const getComicsCb = useCallback(async () => {
     const { data } = await fechComics(offset)
     console.log(data)
     const parsedComics = data.results.map((comic) => comicFactory(comic))
     setComics(parsedComics)
+  }, [offset])
+
+  useEffect(() => {
+    getComicsCb()
+  }, [offset, getComicsCb])
+
+  function updateOffset(nextOffset) {
+    setOffset(nextOffset)
   }
   
   const value = {
     comics,
-    getComics
+    getComicsCb,
+    updateOffset
   }
   return <ComicsContext.Provider value={value}>{children}</ComicsContext.Provider>
 }

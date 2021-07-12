@@ -1,18 +1,10 @@
-import { useEffect } from "react"
 import styles from './Comics.module.scss'
 import { Comic } from '../../molecules'
 import { Wrapper } from '../../atoms'
 import { useComics } from '../../store/comicsStore'
 
 export default function ComicsList() {
-  const {
-    comics,
-    getComics
-  } = useComics()
-
-  useEffect(() => {
-    getComics()
-  }, [])
+  const { comics } = useComics()
 
   return (
     <section className={styles.container}>
@@ -23,7 +15,6 @@ export default function ComicsList() {
               <Comic
                 key={comic.id}
                 title={comic.title}
-                year={comic.date}
                 image={comic.image}
               />
             ))
