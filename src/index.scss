@@ -4,6 +4,10 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+:root {
+  --marvel-red: rgba(237, 35, 36, 1);
+	--bg: #2B2B2B
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -32,6 +36,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: var(--bg)
 }
 ol, ul {
 	list-style: none;
@@ -47,11 +52,6 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-
-:root {
-  --marvel-red: rgba(237, 35, 36, 1);
-	--bg: #2B2B2B
 }
 
 input[type=text] {

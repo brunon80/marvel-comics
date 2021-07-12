@@ -66,6 +66,7 @@ function ComicsProvider({ children }) {
 
   const [comics, setComics] = useState([])
   const [page, setPage] = useState(currentPage)
+  const [isFetching, setIsFetching] = useState(true)
 
   const getComicsCb = useCallback(async (characterIds) => {
     const { data } = await fechComics(page * DEFAULT_PAGE_SIZE, characterIds)
@@ -80,12 +81,14 @@ function ComicsProvider({ children }) {
   }, [])
 
   const updateCharacterList = useCallback(async () => {
+    setIsFetching(true)
     if (character) {
       const characterIds = await getCharacterByName(character)
-      getComicsCb(characterIds)
+      await getComicsCb(characterIds)
     } else {
-      getComicsCb()
+      await getComicsCb()
     }
+    setIsFetching(false)
   }, [character, getCharacterByName, getComicsCb])
 
   useEffect(() => {
@@ -107,10 +110,11 @@ function ComicsProvider({ children }) {
   }
   
   const value = {
+    isFetching,
     comics,
     page,
     getComicsCb,
-    toggleFavorite
+    toggleFavorite,
   }
   return <ComicsContext.Provider value={value}>{children}</ComicsContext.Provider>
 }

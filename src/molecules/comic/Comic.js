@@ -1,6 +1,6 @@
 import styles from './Comic.module.scss'
 
-export default function Comic({ title, year, number, image, isFavorite = false, onToggleFavorite }) {
+export default function Comic({ title, image, isFavorite = false, onToggleFavorite }) {
   return (
     <div aria-label="comic" className={styles.comic}>
       <img aria-label="comic-image" className={styles.image} src={image} alt="comic-img" />
