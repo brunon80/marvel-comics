@@ -4,7 +4,7 @@ import { Wrapper } from '../../atoms'
 import { useComics } from '../../store/comicsStore'
 
 export default function ComicsList() {
-  const { comics } = useComics()
+  const { comics, toggleFavorite } = useComics()
 
   return (
     <section className={styles.container}>
@@ -16,6 +16,8 @@ export default function ComicsList() {
                 key={comic.id}
                 title={comic.title}
                 image={comic.image}
+                isFavorite={comic.isFavorite}
+                onToggleFavorite={() => toggleFavorite(index)}
               />
             ))
           }

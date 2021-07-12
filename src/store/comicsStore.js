@@ -51,7 +51,8 @@ function comicFactory(comic) {
   return ({
     id: comic?.id,
     title: comic?.title,
-    image: `${comic.thumbnail?.path}.${comic?.thumbnail?.extension}`
+    image: `${comic.thumbnail?.path}.${comic?.thumbnail?.extension}`,
+    isFavorite: false
   })
 }
 
@@ -98,12 +99,18 @@ function ComicsProvider({ children }) {
   function updatePage(page) {
     setPage(page)
   }
+
+  function toggleFavorite(comicIndex) {
+    const comicsCopy = [...comics]
+    comicsCopy[comicIndex].isFavorite = !comicsCopy[comicIndex].isFavorite
+    setComics(comicsCopy)
+  }
   
   const value = {
     comics,
     page,
     getComicsCb,
-    updatePage
+    toggleFavorite
   }
   return <ComicsContext.Provider value={value}>{children}</ComicsContext.Provider>
 }

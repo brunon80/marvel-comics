@@ -78,6 +78,7 @@
   @extend .heart;
   width: 40px;
   height: 37px;
+  opacity: 1;
   background-image: url(../../assets/heart_on.png);
   &:hover {
     background-image: url(../../assets/heart_on.png);
