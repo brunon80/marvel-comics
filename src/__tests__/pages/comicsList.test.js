@@ -52,7 +52,7 @@ describe('List of comics screen tests', () => {
 
   it('should search comics by character name', async () => {
     const { app }= setup()
-    const seachInput = app.getByPlaceholderText('Type to search a comic by character name and hit enter')
+    const seachInput = app.getByPlaceholderText('Type to search comics by character name and hit enter')
     fireEvent.focus(seachInput)
     fireEvent.change(seachInput, { target: { search: { value: 'deadpool' } } })
     fireEvent.submit(seachInput)
