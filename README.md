@@ -16,13 +16,17 @@ This makes it possible, for example, to share a link of a certain character on a
 
 Functions were reused as far as possible and constructor functions were created to abstract the real data obtained from the marvel API from that used in the screen.
 
+## Stylesheet
+
+The scss was used instead of the simple css because of features like inheritance and a better readability of pseudo classes, in addition, CSS Modules Stylesheet was used with the advantage of avoiding class name collisions.
+
 ## Organization
 
 In this project, a simplification of the atomic design pattern was used, fundamental components such as inputs, texts or buttons would be in the atoms folder, header, sibebars and elements such as the comic, which are often formed by atoms, in molecules and the page itself it would be joining of molecules.
 
 ## State and reactivity storage
 
-For this project, I used only the React Context API and a hook to access the data contained in the context as well as some functions that allow an active interaction with the store, the biggest advantage of this model is the ability to use closures where it is possible to encapsulate the implementation, just exposing some functions, keeping others private in context.
+For this project, I used only the React Context API and hooks to access the data contained in the context as well as some functions that allow an active interaction with the store, the biggest advantage of this model is the ability to use closures where it is possible to encapsulate the implementation, just exposing some functions, keeping others private in context.
 
 ## Tests
 
@@ -36,11 +40,17 @@ The tests were organized in the same way as the folders inside /src, they were t
 - Hooks
 - Context API
 
+## Responsiveness
+
+The application can be used perfectly on a mobile device of any screen size.
+
 ## Improvements
 
-Mais desacoplamento na context API (possivelmente a criação de um hook que abstraia a lógica)
+More decoupling in the context API (possibly creating a hook that abstracts the logic)
 
-Maior cobertura de testes, os testes estão simples, mas mostram bem todos os elementos testáveis e dá uma prévia do que testar.
+Greater test coverage, the tests are simple, but show well all testable elements and give a preview of what to test.
+
+More snapshot tests
 
 ## Comments
 
