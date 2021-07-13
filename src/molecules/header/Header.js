@@ -18,7 +18,7 @@ export default function Header() {
           ref={searchInput}
           defaultValue={character}
           className={styles.search}
-          placeholder="Type to search a comic by character name and hit enter"
+          placeholder="Type to search comics by character name and hit enter"
           name="search"
           id="search-char"
         />
