@@ -1,11 +1,5 @@
 import { BASE_URL, API_KEY, DEFAULT_PAGE_SIZE } from '../constants'
-import { urlBuilder } from '../utils'
-
-async function fetcher({ url, options }) {
-  const response = await fetch(url, options)
-  const json = await response.json()
-  return json
-}
+import { urlBuilder, fetcher } from '../utils'
 
 export async function fetchComics(offset = 0, characters) {
   const comicsUrl = `${BASE_URL}/comics`
