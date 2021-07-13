@@ -1,6 +1,12 @@
 import { BASE_URL, API_KEY, DEFAULT_PAGE_SIZE } from '../constants'
 import { urlBuilder } from '../utils'
 
+async function fetcher({ url, options }) {
+  const response = await fetch(url, options)
+  const json = await response.json()
+  return json
+}
+
 export async function fetchComics(offset = 0, characters) {
   const comicsUrl = `${BASE_URL}/comics`
   const params = {
@@ -12,9 +18,7 @@ export async function fetchComics(offset = 0, characters) {
   if(characters) params.characters = characters
 
   const url = urlBuilder(comicsUrl, params)
-  const response = await fetch(url)
-  const json = await response.json()
-  return json
+  return await fetcher({ url })
 }
 
 export async function searchCharacterByName(name) {
@@ -24,7 +28,5 @@ export async function searchCharacterByName(name) {
     apikey: API_KEY,
   }
   const url = urlBuilder(charactersUrl, params)
-  const response = await fetch(url)
-  const json = await response.json()
-  return json
+  return await fetcher({ url })
 }
