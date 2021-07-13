@@ -11,7 +11,7 @@ export default function ComicsList() {
       <Wrapper>
         {
           isFetching
-            ? <div className={styles['loading-wrapper']}>
+            ? <div aria-label="loading" className={styles['loading-wrapper']}>
                 <div className={styles['lds-dual-ring']} />
               </div>
             : <div className={styles.grid}>

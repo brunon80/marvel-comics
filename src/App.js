@@ -1,8 +1,13 @@
+import {
+  BrowserRouter as Router,
+} from "react-router-dom"
 import Root from './routes/Root'
 
 function App() {
   return (
-    <Root />
+    <Router>
+      <Root />
+    </Router>
   )
 }
 
