@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { createMemoryHistory } from 'history'
 import React from 'react'
@@ -9,8 +9,14 @@ import { DEFAULT_PAGE_SIZE } from '../../constants'
 import '@testing-library/jest-dom/extend-expect'
 
 describe('List of comics screen tests', () => {
-  const setup = () => {
+  const timeConfig = {
+    timeout: 2000
+  }
+
+  const setup = (route) => {
     const history = createMemoryHistory()
+    if (route) history.push(route)
+
     const app = render(
         <Router history={history}>
           <Root  />
@@ -30,7 +36,7 @@ describe('List of comics screen tests', () => {
 
   it('should render a list of comics', async () => {
     const { app }= setup()
-    const comics = await app.findAllByLabelText('comic', {  }, { timeout: 2000 })
+    const comics = await app.findAllByLabelText('comic', {  }, timeConfig)
     expect(comics.length).toBe(DEFAULT_PAGE_SIZE)
   })
 
@@ -38,12 +44,12 @@ describe('List of comics screen tests', () => {
     const { app }= setup()
     const leftClick = { button: 0 }
 
-    const oldComics = await app.findAllByLabelText('comic', {  }, { timeout: 2000 })
+    const oldComics = await app.findAllByLabelText('comic', {  }, timeConfig)
 
-    const next = await app.findByText(/Next Page/i, {}, { timeout: 2000 })
+    const next = await app.findByText(/Next Page/i, {}, timeConfig)
     userEvent.click(next, leftClick)
     
-    const newComics = await app.findAllByLabelText('comic', {  }, { timeout: 2000 })
+    const newComics = await app.findAllByLabelText('comic', {  }, timeConfig)
 
     oldComics.forEach((comic, index) => {
       expect(comic.textContent !== newComics[index].textContent).toBeTruthy()
@@ -57,7 +63,13 @@ describe('List of comics screen tests', () => {
     fireEvent.change(seachInput, { target: { search: { value: 'deadpool' } } })
     fireEvent.submit(seachInput)
 
-    const comics = await app.findAllByLabelText('comic-title', {  }, { timeout: 2000 })
+    const comics = await app.findAllByLabelText('comic-title', {  }, timeConfig)
     expect(comics[0].textContent.toLowerCase().includes('deadpool')).toBeTruthy()
+  })
+
+  it('should update search input when path changes', () => {
+    const { app }= setup('/deadpool')
+    const seachInput = app.getByPlaceholderText('Type to search comics by character name and hit enter')
+    expect(seachInput.value).toBe('deadpool')
   })
 })

@@ -24,7 +24,7 @@ describe('TextInput tests', () => {
     expect(input.value).toBe(value)
   })
 
-  it('should macth snapshot <TextInput />', async () => {
+  it('should macth snapshot <TextInput />', () => {
     const { input } = setup()
     expect(input).toMatchSnapshot()
   })
