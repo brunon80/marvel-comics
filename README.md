@@ -52,6 +52,8 @@ Greater test coverage, the tests are simple, but show well all testable elements
 
 More snapshot tests
 
+Store sensitve keys in a .env file
+
 ## Comments
 
 My git history is pretty bad, I'd like to use this space to comment that in my usual workflow I don't commit that big and in such a small amount, but given the time conditions I ended up neglecting it.
