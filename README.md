@@ -57,3 +57,5 @@ Store sensitve keys in a .env file
 ## Comments
 
 My git history is pretty bad, I'd like to use this space to comment that in my usual workflow I don't commit that big and in such a small amount, but given the time conditions I ended up neglecting it.
+
+The intention was to order from the newest to the most recent, I may not have found a parameter that would do this explainably, the closest I got was using orderBy -focDate as a parameter
