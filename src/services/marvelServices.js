@@ -12,7 +12,7 @@ export async function fetchComics(offset = 0, characters) {
   if(characters) params.characters = characters
 
   const url = urlBuilder(comicsUrl, params)
-  return await fetcher({ url })
+  return fetcher({ url })
 }
 
 export async function searchCharacterByName(name) {
@@ -22,5 +22,5 @@ export async function searchCharacterByName(name) {
     apikey: API_KEY,
   }
   const url = urlBuilder(charactersUrl, params)
-  return await fetcher({ url })
+  return fetcher({ url })
 }
